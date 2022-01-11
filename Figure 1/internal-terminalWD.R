@@ -49,7 +49,7 @@ p1 <- ggplot(lib, aes(Index, slope, color = ` `, fill = ` `))+
   stat_smooth(method = "lm", formula = y ~ poly(x, 3), size = 3,
               se = F, show.legend = F)+
   #Third - add individual points
-  geom_jitter(height = 0,size = 2, alpha = 0.5, width = 0.05)+
+  geom_jitter(height = 0,size = 0.9, alpha = 1, width = 0.05)+
   #Fourth - add control sequences labels
   annotate('text', label='VP16-minx2', x=20.1, y=known_sample$avg[4], color='#007315', hjust=0, size=4)+
   annotate('text', label='Gal4 (860-872)', x=20.1, y=known_sample$avg[2], color='#62007a', hjust=0, size=4)+
@@ -58,13 +58,15 @@ p1 <- ggplot(lib, aes(Index, slope, color = ` `, fill = ` `))+
   annotate('text', label='Stop Codon', x=20.1, y=0, color='black', hjust=0, size=4)+
   annotate('text', label='20 G\'s', x=20.1, y=known_sample$avg[5], color='#826200', hjust=0, size=4)+
   #Fifth - finalize look of the plot
-  theme_pubr()+scale_x_continuous(breaks = seq(2,20,2))+
+  theme_pubr(legend = 'none')+scale_x_continuous(breaks = seq(2,20,2))+
   ylab('Growth Slope')+xlab('Length of WD-module')+
-  coord_cartesian(clip = "off",xlim = c(2, 25),ylim = c(-2,2.5))
+  coord_cartesian(clip = "off",xlim = c(2, 25),ylim = c(-1.2,2.5))+
+  scale_fill_manual(values = c("#F8766D","#00BFC4"))+
+  scale_color_manual(values = c("#F8766D","#00BFC4"))
 
 p1
 
 #ggsave('internal-terminal.tiff', p1, height = 4, width = 5, units = 'in', dpi = 800)
 
-#saveRDS(p1, 'Make figure1/fig1_internal-terminalWD.rds')
+#saveRDS(p1, 'Figure 1/fig1_internal-terminalWD.rds')
 

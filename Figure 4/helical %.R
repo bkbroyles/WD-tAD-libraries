@@ -24,11 +24,12 @@ plotme$helical <- factor(plotme$helical,
 
 plotme$`Functional \n tAD %` <- plotme$lp
 
-ggplot(plotme, aes(helical, lp, fill = `Functional \n tAD %`))+
+p1 <- ggplot(plotme, aes(helical, lp, fill = `Functional \n tAD %`))+
   geom_hline(yintercept = 28.9, linetype = 'dashed')+
   geom_col(color = 'black')+theme_pubr()+
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
   xlab('Predicted Helical %')+
   ylab('Functional tAD %')+
-  scale_fill_gradient2(midpoint = 28.9)
+  scale_fill_gradient2(midpoint = 28.9, high = "#F8766D", low = "#00BFC4")+
+  scale_x_discrete(breaks = seq(0,80,10))
 
+ggsave('Figure 4/helicity_percent.tiff',p1, height = 4, width = 3, dpi = 800, units = 'in')

@@ -58,12 +58,12 @@ x$` ` <- x$lp
 
 p1 <- ggplot(x, aes(pos, yax, fill = ` `))+
   geom_tile(color = 'grey32', show.legend = T)+
-  scale_fill_gradient2(midpoint = 16.8, high = '#00BFC4', low = '#F8766D', mid = 'white')+
+  scale_fill_gradient2(midpoint = 16.8, high = '#F8766D', low = '#00BFC4', mid = 'white')+
   scale_x_continuous(breaks = seq(1,27,2))+
   theme_pubr(legend = 'top')+ylab('Motif')+xlab('Starting Position')
 
 #ggsave('tetrapep-x-pos-hahn.tiff',p1, height = 4, width = 2.4, dpi = 800, units = 'in')
-saveRDS(p1, 'tetrapep-hahn.rds')
+#saveRDS(p1, 'Figure 2/fig2_tetrapep-hahn.rds')
 
 #sum(l_sums)/(sum(l_sums)+sum(d_sums)) midpoint should be 16.8
 
@@ -105,8 +105,8 @@ df <- df %>% mutate(
   set = 'hahn'
 )
 
-df <- df %>% select(pep, lp, set)
-tetra_df <- tetra_df %>% select(pep, lp, set)
+df <- df %>% dplyr::select(pep, lp, set)
+tetra_df <- tetra_df %>% dplyr::select(pep, lp, set)
 
 tetra_df <- rbind(tetra_df, df)
 

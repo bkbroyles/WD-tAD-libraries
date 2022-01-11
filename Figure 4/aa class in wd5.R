@@ -55,13 +55,18 @@ plotme$label[82] <- 'acidic'
 p2 <- plotme %>% filter(total > 9) %>% 
 ggplot(., aes(count, lp, color = aa))+
   geom_hline(yintercept = 28.9, linetype = 'dashed')+
-  geom_line(size = 2)+
+  geom_line(size = 1.5)+
   theme_pubr()+
-  scale_x_continuous(breaks = 0:8)+
+  scale_x_continuous(breaks = 0:9)+
   geom_label_repel(aes(label = label), show.legend = F, min.segment.length = 0,
-                  segment.color = 'grey', hjust = 0, direction = 'y',nudge_x = 0.2,
-                  box.padding = 0.3)+
-  ylab('Functional tAD %')
+                  segment.color = 'grey', hjust = 0, direction = 'y',nudge_x = 1,
+                  box.padding = 0.3, xlim = c(4,8))+
+  ylab('Functional tAD %')+
+  scale_color_manual(values = c("#F8766D", "#F0E442", "#E69F00", 
+                                "#0072B2", "#56B4E9", "#999999", 
+                                "#CC79A7", "#009E73"))
+
+p2
 
 #ggsave('wd5_aa_counts.tiff',p2, height = 4, width = 4, dpi = 800, units = 'in')
   

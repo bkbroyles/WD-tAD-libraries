@@ -40,7 +40,7 @@ korn_tetrapep$pep <- gsub('[FEY]','',korn_tetrapep$pep)
 
 korn_tetrapep$set <- 'korn'
 
-korn_tetrapep <- korn_tetrapep %>% select(pep,lp,set)
+korn_tetrapep <- korn_tetrapep %>% dplyr::select(pep,lp,set)
 
 tetra_df <- rbind(tetra_df,korn_tetrapep)
 
@@ -73,7 +73,45 @@ p1 <- ggplot(tetra_df, aes(lp, pep2, color = library))+
 
 #ggsave('tetrapep-3libraries.tiff',p1, height = 4, width = 5, dpi = 800, units = 'in')
 
-##whats live percent for kornberg
-sum(korn_tetrapep$live)
-sum(korn_tetrapep$total)
-184/1085 #17%
+#CHANGING WAY TO VIEW THIS GRAPH
+tetra_df$avg <- 0
+x <- expand.grid(c('W','D'),c('W','D'),
+                 c('W','D'),c('W','D'),
+                 stringsAsFactors = F)
+x$motif <- paste(x$Var1,x$Var2,x$Var3,x$Var4,sep='')
+
+for(i in 1:nrow(x)){
+  ro <- which(tetra_df$pep == x$motif[i])
+  tetra_df$avg[ro] <- sum(tetra_df$lp[ro])/3
+}
+
+hold <- tetra_df$pep[order(tetra_df$avg)]
+these_ones <- hold[c(1,4,7,10,13,16,19,22,25,28,31,34,37,40,43,46)]
+
+tetra_df$pep <- factor(tetra_df$pep,
+                       levels = these_ones)
+
+#fix library names
+ro <- which(tetra_df$library=='kornberg')
+tetra_df$library[ro] <- 'Artificial tAD'
+
+ro <- which(tetra_df$library=='hahn')
+tetra_df$library[ro] <- 'Gcn4 tAD'
+
+ro <- which(tetra_df$library=='wd12')
+tetra_df$library[ro] <- 'Gal4 tAD (wd12)'
+
+tetra_df$` ` <- tetra_df$library
+
+p1 <- ggplot(tetra_df, aes(lp, pep, color = ` `))+
+  geom_smooth(aes(group = ` `), se = F, show.legend = F, method = 'lm', 
+              linetype = 'dashed', alpha = 0.5, size = 0.5)+
+  geom_point(aes(shape = ` `))+theme_pubr()+
+  #scale_color_manual(values = c('#F8766D','#00BFC4','#4ce670'))+
+  ylab('Motif')+xlab('Functional tAD %')
+
+
+
+ggsave('tetrapep-3libraries.tiff',p1, height = 4, width = 5, dpi = 800, units = 'in')
+
+#saveRDS(tetra_df, 'tetrapep_3libraries.rds')

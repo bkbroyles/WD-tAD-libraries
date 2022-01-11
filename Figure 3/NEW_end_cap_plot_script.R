@@ -55,14 +55,14 @@ ggplot(., aes(x, lp, color = end_cap))+
                   xlim = c(5,8))+
   geom_point(size = 2, show.legend = F)+
   geom_line(aes(group = end_cap), show.legend = F)+
-  theme_pubr()+ylab('Functional tAD %')+xlab('Proceding amino acids')+
-  ylim(0,80)+scale_color_manual(values = c('#ff6161','#e82323','#ff0000',
+  theme_pubr()+ylab('Functional tAD %')+xlab('Preceding amino acids')+
+  ylim(0,65)+scale_color_manual(values = c('#ff6161','#e82323','#ff0000',
                                            '#ffb657','#eb9321','#ff9000'))+
   coord_cartesian(clip = 'off')+
   theme(plot.margin = unit(c(5.5,80,5.5,5.5), 'pt'),
         axis.text.x = element_text(angle = 35, vjust = 1, hjust=1))
 
 p2
-#ggsave('wd12_endcaps.tiff',p2, height = 4, width = 3, dpi = 800, units = 'in')
+ggsave('wd12_endcaps.tiff',p2, height = 4, width = 4, dpi = 800, units = 'in')
 
-#saveRDS(p2, 'wd12_endcaps.rds')
+#saveRDS(p2, 'Figure 3/fig3_wd12_endcaps.rds')

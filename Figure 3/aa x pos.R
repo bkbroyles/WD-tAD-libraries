@@ -62,12 +62,10 @@ p2 <- ggplot(plotme, aes(pos, live_percent, color = ` `))+
   theme_pubr()+scale_x_continuous(breaks = 1:12)+
   scale_color_manual(values = c('red','orange'))+
   scale_fill_manual(values = c('red','orange'))+
-  xlab('Position')+ylab('Functional tAD %')+
-  annotate('text', label = 'Library Baseline', x = 11, y = 33.5,
-           hjust = 1, vjust = 1)
+  xlab('Position')+ylab('Functional tAD %')
 
 p2
 
 #ggsave('aa-x-pos.tiff',p2, height = 4, width = 3, dpi = 800, units = 'in')
-#saveRDS(p2, 'aaxpos.rds')
+#saveRDS(p2, 'Figure 3/fig3_aaxpos.rds')
 

@@ -68,10 +68,10 @@ p4 <- plotme %>% filter(total > 30) %>%
   geom_hline(yintercept = 58.1, linetype = 'dashed')+
   geom_col(show.legend = F,color = 'black')+
   theme_pubr()+scale_x_continuous(breaks = 1:10)+
-  scale_fill_gradient2(midpoint = 58.1, high = '#00BFC4', low = '#F8766D', mid = 'white')+
+  scale_fill_gradient2(midpoint = 58.1, high = '#F8766D', low = '#00BFC4', mid = 'white')+
   coord_cartesian(ylim = c(0,80))+xlab('Aromatic/Acidic Mixing')+
   ylab('Functional tAD %')
 
 #ggsave('mixing-wd12.tiff',p4, height = 4, width = 3, dpi = 800, units = 'in')
 
-#saveRDS(p4, 'mixing_wd12.rds')
+#saveRDS(p4, 'Figure 2/fig2_mixing_wd12.rds')

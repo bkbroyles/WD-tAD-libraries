@@ -33,8 +33,6 @@ y <- tibble(die = x[,'die'], live = x[,'live'], balance = row.names(x)) %>%
   )
 
 y$balance <- as.numeric(y$balance)
-y %>% filter(total > 50) %>% 
-  ggplot(., aes(balance, live_percent))+geom_col()+theme_pubr()
 
 p3 <- y %>% filter(total > 10) %>% 
   ggplot(., aes(balance, live_percent, fill = live_percent))+
@@ -42,9 +40,9 @@ p3 <- y %>% filter(total > 10) %>%
   geom_col(show.legend = F, color = 'black')+
   theme_pubr()+scale_x_continuous(breaks = seq(-8,8,2))+
   #annotate('text', label = 'Library Baseline', x = -8.8, y = 36, hjust = 0)+
-  scale_fill_gradient2(midpoint = 33.5, high = '#00BFC4', low = '#F8766D', mid = 'white')+
+  scale_fill_gradient2(midpoint = 33.5, high = '#F8766D', low = '#00BFC4', mid = 'white')+
   coord_cartesian(ylim = c(0,70), xlim = c(-8.5,8.5))+xlab('Balance (W - D)')+
   ylab('Functional tAD %')
 
 ##
-##ggsave('balance.tiff',p3, height = 4, width = 3, dpi = 800, units = 'in')
+#ggsave('balance.tiff',p3, height = 4, width = 3, dpi = 800, units = 'in')

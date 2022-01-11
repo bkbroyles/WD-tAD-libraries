@@ -71,7 +71,7 @@ for(i in 1:9){
 
 ##add live avg to plot_me
 
-plot_me <- hold %>% select(pep,starts_with('live_per'))
+plot_me <- hold %>% dplyr::select(pep,starts_with('live_per'))
 
 plot_me <- pivot_longer(plot_me, cols = c(paste('live_percent_',1:9, sep = '')))
 
@@ -87,13 +87,13 @@ plot_me$` ` <- plot_me$value
 p1 <- plot_me %>% 
 ggplot(., aes(position, pep, fill = ` `))+
   geom_tile(color = 'grey32', show.legend = T)+
-  scale_fill_gradient2(midpoint = 33.5, high = '#00BFC4', low = '#F8766D', mid = 'white')+
+  scale_fill_gradient2(midpoint = 33.5, high = '#F8766D', low = '#00BFC4', mid = 'white')+
   scale_x_continuous(breaks = 1:9)+
   theme_pubr(legend = 'top')+ylab('Motif')+xlab('Starting Position')
 
 ##save plot here
 #ggsave('tetrapep-wd12.tiff',p1, height = 4, width = 3, dpi = 800, units = 'in')
-#saveRDS(p1, 'tetrapep_wd12.rds')
+#saveRDS(p1, 'Figure 2/fig2_tetrapep_wd12.rds')
 
 #live percent calculation
 x <- hold %>% select(starts_with('live'), -contains('percent'))
@@ -114,6 +114,6 @@ hold <- hold %>% mutate(
     total_5 + total_6 + total_7 + total_8 + total_9
 )
 
-tetra_df <- hold %>% select(pep, live_all, total_all)
+tetra_df <- hold %>% dplyr::select(pep, live_all, total_all)
 tetra_df$lp <- tetra_df$live_all/tetra_df$total_all * 100
 tetra_df$set <- 'wd12'
