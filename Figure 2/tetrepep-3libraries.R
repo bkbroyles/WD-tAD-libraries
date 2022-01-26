@@ -105,13 +105,16 @@ tetra_df$` ` <- tetra_df$library
 
 p1 <- ggplot(tetra_df, aes(lp, pep, color = ` `))+
   geom_smooth(aes(group = ` `), se = F, show.legend = F, method = 'lm', 
-              linetype = 'dashed', alpha = 0.5, size = 0.5)+
-  geom_point(aes(shape = ` `))+theme_pubr()+
-  #scale_color_manual(values = c('#F8766D','#00BFC4','#4ce670'))+
+              linetype = 'dashed', alpha = 1, size = 1.2)+
+  geom_point(aes(shape = ` `), size = 2, alpha = 0.9)+theme_pubr()+
+  scale_color_manual(values = c('#ff707c','#707cff','#7cff70'))+
   ylab('Motif')+xlab('Functional tAD %')
 
 
 
-ggsave('tetrapep-3libraries.tiff',p1, height = 4, width = 5, dpi = 800, units = 'in')
+#ggsave('tetrapep-3libraries.tiff',p1, height = 4, width = 5, dpi = 800, units = 'in')
 
 #saveRDS(tetra_df, 'tetrapep_3libraries.rds')
+tetra_df <- read_rds('tetrapep_3libraries.rds')
+
+library(ggpubr)

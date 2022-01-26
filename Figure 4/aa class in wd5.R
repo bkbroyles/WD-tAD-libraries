@@ -1,6 +1,9 @@
 ##Individual amino acids help
-wd5 <- read_rds('Datasets/semi_random_SS.rds') %>% 
-  filter(pattern == 'RdmWD5_20')
+library(tidyverse)
+library(ggpubr)
+
+wd5 <- read_rds('Datasets/semi_random_library2.rds') %>% 
+  filter(pattern.x == 'RdmWD5_20')
 
 x <- str_split(wd5$aa_seq,'')
 
@@ -54,7 +57,7 @@ plotme$label[82] <- 'acidic'
 
 p2 <- plotme %>% filter(total > 9) %>% 
 ggplot(., aes(count, lp, color = aa))+
-  geom_hline(yintercept = 28.9, linetype = 'dashed')+
+  geom_hline(yintercept = 19.6, linetype = 'dashed')+
   geom_line(size = 1.5)+
   theme_pubr()+
   scale_x_continuous(breaks = 0:9)+
@@ -69,4 +72,7 @@ ggplot(., aes(count, lp, color = aa))+
 p2
 
 #ggsave('wd5_aa_counts.tiff',p2, height = 4, width = 4, dpi = 800, units = 'in')
+  table(wd5$binary_stop)
   
+ro <- grep('WEDPWADPWPDGWPDLWADV', wd5$aa_seq)
+wd5[ro,]

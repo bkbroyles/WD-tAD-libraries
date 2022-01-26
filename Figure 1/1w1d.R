@@ -113,8 +113,9 @@ df2 <- rbind(df2, hold2)
 
 df2$color <- ifelse(df2$rep==6,1,0) %>% as.factor()
 
-plot_1w1d <- ggplot(df2, aes(id_number, slope, color = color))+
+df2 %>% filter(rep != 6) %>% 
+ggplot(., aes(id_number, slope, color = color))+
   geom_hline(yintercept = 0, size = 0.8)+
-  geom_point(size = 2)+
+  geom_boxplot(aes(group = id_number))+
   ylim(-2,2.5)+
   theme_pubr()
