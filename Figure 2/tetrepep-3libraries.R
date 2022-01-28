@@ -1,47 +1,62 @@
-##tetrapep plot
-##data generated in tetrapep x pos in hahn script
+##compare 3 libraries
+##data generated and saved in tetrapep x pos in hahn script
 ##   and tetrapep x position script
 
-##could kornberg be added to this plot
+#packages
+library(tidyverse)
+library(ggpubr)
+
+#get data from artificial tAD data
 korn <- read_rds('Datasets/Yeast_TF_tiled.rds')
+
+#only grab the tiled TF subset of this library
 ro <- grep('tiles',korn$set)
 korn <- korn[ro,]
 
+#set up tetrapeptide search
 aro <- '[WYF]'
 acid <- '[DE]'
 opts <- c(aro,acid)
 
 combos <- expand.grid(opts,opts,opts,opts,stringsAsFactors = F)
 
+#make regex for searching for these tetrapeptides
 combos$pep <- paste(combos$Var1,combos$Var2,combos$Var3,combos$Var4,sep='')
 
-combos$live_count <- 0
-combos$die_count <- 0
-
+#count tetrapeptides in each sequence
 for(i in 1:nrow(combos)){
   korn[,combos$pep[i]] <- str_count(korn$aa_seq,combos$pep[i])
 }
 
+#split into live and die set from artificial tAD dataset.
 live <- korn %>% filter(binary_stop=='live')
 die <- korn %>% filter(binary_stop=='die')
 
 l_sums2 <- apply(live[,10:25],2,sum)
 d_sums2 <- apply(die[,10:25],2,sum)
 
+#Create table based on counts and live percent per tetrapeptide
 korn_tetrapep <- tibble(pep = names(l_sums2), live = l_sums2, die = d_sums2) %>% 
   mutate(
     total = live + die,
     lp = live/total * 100
   )
 
+#Clean up the regex features
 korn_tetrapep$pep <- gsub('\\[','',korn_tetrapep$pep)
 korn_tetrapep$pep <- gsub('\\]','',korn_tetrapep$pep)
 korn_tetrapep$pep <- gsub('[FEY]','',korn_tetrapep$pep)
 
+#add set for combining all three libraries
 korn_tetrapep$set <- 'korn'
 
+#simplify table
 korn_tetrapep <- korn_tetrapep %>% dplyr::select(pep,lp,set)
 
+#tetrapap_3libraries is the saved tetrapeptide data from 
+# gcn4 library and gal4 library, they are calculated in 
+# other tetrapeptide scripts
+tetra_df <- read_rds('Figure 2/tetrapep_3libraries.rds')
 tetra_df <- rbind(tetra_df,korn_tetrapep)
 
 seqs <- c('DDWW','DWWD','WWDW','DWWW','WDDW',
@@ -98,8 +113,8 @@ tetra_df$library[ro] <- 'Artificial tAD'
 ro <- which(tetra_df$library=='hahn')
 tetra_df$library[ro] <- 'Gcn4 tAD'
 
-ro <- which(tetra_df$library=='wd12')
-tetra_df$library[ro] <- 'Gal4 tAD (wd12)'
+ro <- which(tetra_df$library=='Gal4 tAD (wd12)')
+tetra_df$library[ro] <- 'Gal4 tAD'
 
 tetra_df$` ` <- tetra_df$library
 
@@ -107,14 +122,10 @@ p1 <- ggplot(tetra_df, aes(lp, pep, color = ` `))+
   geom_smooth(aes(group = ` `), se = F, show.legend = F, method = 'lm', 
               linetype = 'dashed', alpha = 1, size = 1.2)+
   geom_point(aes(shape = ` `), size = 2, alpha = 0.9)+theme_pubr()+
-  scale_color_manual(values = c('#ff707c','#707cff','#7cff70'))+
+  scale_color_manual(values = c('#ff707c','#707cff','#56b820'))+
   ylab('Motif')+xlab('Functional tAD %')
 
 
 
-#ggsave('tetrapep-3libraries.tiff',p1, height = 4, width = 5, dpi = 800, units = 'in')
+#ggsave('Figure 2/tetrapep-3libraries.tiff',p1, height = 4, width = 4.5, dpi = 800, units = 'in')
 
-#saveRDS(tetra_df, 'tetrapep_3libraries.rds')
-tetra_df <- read_rds('tetrapep_3libraries.rds')
-
-library(ggpubr)

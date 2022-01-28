@@ -52,7 +52,7 @@ ggplot(., aes(x, lp, color = end_cap))+
   geom_text_repel(aes(label = end_lab),
                   nudge_x = 1, na.rm = T, show.legend = F, segment.color = 'grey',
                   min.segment.length = 0,box.padding = 0.1, hjust = 0,direction = 'y',
-                  xlim = c(5,8))+
+                  xlim = c(5,6))+
   geom_point(size = 2, show.legend = F)+
   geom_line(aes(group = end_cap), show.legend = F)+
   theme_pubr()+ylab('Functional tAD %')+xlab('Preceding amino acids')+
@@ -63,6 +63,6 @@ ggplot(., aes(x, lp, color = end_cap))+
         axis.text.x = element_text(angle = 35, vjust = 1, hjust=1))
 
 p2
-ggsave('wd12_endcaps.tiff',p2, height = 4, width = 4, dpi = 800, units = 'in')
+#ggsave('wd12_endcaps.tiff',p2, height = 4, width = 4, dpi = 800, units = 'in')
 
 #saveRDS(p2, 'Figure 3/fig3_wd12_endcaps.rds')
