@@ -20,6 +20,6 @@
     "stop_at_score": 100.0,
     "recompile_padding": 1.0,
     "recompile_all_models": false,
-    "commit": "54b3699bcf2a2838134eb54e6bb0ce8fa586a19c",
+    "commit": "ee8e17402a3ce8aa67669d3ea22958ef99b808d9",
     "version": "1.2.0"
 }
