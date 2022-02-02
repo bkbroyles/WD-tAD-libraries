@@ -53,11 +53,13 @@ korn_tetrapep$set <- 'korn'
 #simplify table
 korn_tetrapep <- korn_tetrapep %>% dplyr::select(pep,lp,set)
 
-#tetrapap_3libraries is the saved tetrapeptide data from 
+#combine kornberg data with wd12 and gcn4
 # gcn4 library and gal4 library, they are calculated in 
 # other tetrapeptide scripts
-tetra_df <- read_rds('Figure 2/tetrapep_3libraries.rds')
-tetra_df <- rbind(tetra_df,korn_tetrapep)
+df1 <- read_rds('Figure 2/gcn4_tetra_data.rds')
+df2 <- read_rds('Figure 2/wd12_tetra_data.rds')
+
+tetra_df <- rbind(df1, df2,korn_tetrapep)
 
 seqs <- c('DDWW','DWWD','WWDW','DWWW','WDDW',
   'WDWW','DWDW','WWWD','WDWD','WWDD',
@@ -78,15 +80,6 @@ tetra_df$pep2 <- gsub('ED','E-D',tetra_df$pep2)
 tetra_df$pep2 <- gsub('FW','F-W',tetra_df$pep2)
 tetra_df$pep2 <- gsub('EW','E-W',tetra_df$pep2)
 tetra_df$pep2 <- gsub('FD','F-D',tetra_df$pep2)
-
-p1 <- ggplot(tetra_df, aes(lp, pep2, color = library))+
-  geom_point()+theme_pubr()+scale_color_manual(values = c('red','green','blue'))+
-  geom_vline(xintercept = 16.8, color = 'red', linetype = 'dashed')+
-  geom_vline(xintercept = 17, color = 'green', linetype = 'dashed')+
-  geom_vline(xintercept = 33.5, color = 'blue', linetype = 'dashed')+
-  ylab('Motif')+xlab('Functional tAD %')
-
-#ggsave('tetrapep-3libraries.tiff',p1, height = 4, width = 5, dpi = 800, units = 'in')
 
 #CHANGING WAY TO VIEW THIS GRAPH
 tetra_df$avg <- 0

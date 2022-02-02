@@ -106,7 +106,6 @@ df <- df %>% mutate(
 )
 
 df <- df %>% dplyr::select(pep, lp, set)
-tetra_df <- tetra_df %>% dplyr::select(pep, lp, set)
 
-tetra_df <- rbind(tetra_df, df)
+saveRDS(df, 'gcn4_tetra_data.rds')
 

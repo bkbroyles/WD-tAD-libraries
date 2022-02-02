@@ -355,7 +355,7 @@ for(i in 1:nrow(A_screen_agg)){
   sse <- sum((models[[i]]$wresid)^2)
   A_screen_agg$mse[i] <- sse/(4 - na_length) 
 }
-
+A_screen_agg$rmse <- sqrt(A_screen_agg$mse)
 #models <- apply(H_screen_agg[,c("day1","day2","day3","day4")],1,regress1)
 
 #H_screen_agg$slope <- sapply(models, function(i) i$coefficients)
@@ -367,8 +367,22 @@ for(i in 1:nrow(A_screen_agg)){
 #  H_screen_agg$mse[i] <- sse/(4 - na_length) 
 #}
 
+##adding live or die based on stop codon performance and adjust slope
 A_screen <- A_screen_agg %>% dplyr::select(id_number, aa_seq, set,
-                                           slope, converged, mse)
+                                           slope, converged, mse, rmse)
+
+a_stops <- A_screen %>% filter(set == 'stop_codon') %>% 
+  dplyr::select(slope) %>% unlist()
+
+hist(a_stops)
+
+a_stops <- sort(a_stops, decreasing = T)
+
+a_cut <- mean(a_stops[1:5])
+
+A_screen$binary_stop <- ifelse(A_screen$slope > a_cut, 'live','die')
+
+A_screen$slope <- A_screen$slope - a_cut
 
 #H_screen <- H_screen_agg %>% dplyr::select(id_number, aa_seq, set,
 #                                           slope, converged, mse)
@@ -380,4 +394,3 @@ A_screen <- A_screen_agg %>% dplyr::select(id_number, aa_seq, set,
 #saveRDS(H_screen, 'design_library_H_screen.rds')
 
 
- 

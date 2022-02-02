@@ -117,3 +117,7 @@ hold <- hold %>% mutate(
 tetra_df <- hold %>% dplyr::select(pep, live_all, total_all)
 tetra_df$lp <- tetra_df$live_all/tetra_df$total_all * 100
 tetra_df$set <- 'wd12'
+
+tetra_df <- tetra_df %>% dplyr::select(pep, lp, set)
+
+#saveRDS(tetra_df, 'wd12_tetra_data.rds')
