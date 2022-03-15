@@ -31,4 +31,4 @@ plot_1w1d <- ggplot(hold, aes(index, slope, color = rep))+
   scale_x_continuous(breaks = 1:12)+ylab(' ')+
   scale_color_manual(values = c("#F8766D","#00BFC4"))+xlab("Index")
 
-#ggsave('1w1d_sd.tiff', plot_1w1d, height = 4, width = 3, units = 'in', dpi = 800)
+#ggsave('1w1d_sd.tiff', plot_1w1d, height = 4, width = 3, units = 'in', dpi = 400)

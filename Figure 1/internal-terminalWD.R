@@ -49,7 +49,7 @@ p1 <- ggplot(lib, aes(Index, slope, color = ` `, fill = ` `))+
   stat_smooth(method = "lm", formula = y ~ poly(x, 3), size = 3,
               se = F, show.legend = F)+
   #Third - add individual points
-  geom_jitter(height = 0,size = 0.9, alpha = 1, width = 0.05)+
+  geom_jitter(height = 0,size = 2, alpha = 1, width = 0.05)+
   #Fourth - add control sequences labels
   annotate('text', label='VP16-minx2', x=20.1, y=known_sample$avg[4], color='#007315', hjust=0, size=4)+
   annotate('text', label='Gal4 (860-872)', x=20.1, y=known_sample$avg[2], color='#62007a', hjust=0, size=4)+
@@ -66,7 +66,7 @@ p1 <- ggplot(lib, aes(Index, slope, color = ` `, fill = ` `))+
 
 p1
 
-#ggsave('internal-terminal.tiff', p1, height = 4, width = 5, units = 'in', dpi = 800)
+#ggsave('internal-terminal.tiff', p1, height = 4, width = 4.7, units = 'in', dpi = 400)
 
 #saveRDS(p1, 'Figure 1/fig1_internal-terminalWD.rds')
 

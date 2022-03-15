@@ -45,17 +45,17 @@ lib <- lib[c(ro1,ro2,ro3),]
 
 lib$`G's between\n   W and D` <- lib$spacing
 
-p3 <- ggplot(lib, aes(wd2, slope))+
+  p3 <- ggplot(lib, aes(wd2, slope))+
   geom_hline(yintercept = 0, color = 'black', linetype = 'solid', size = 0.8)+
   geom_boxplot(fill = 'grey48', outlier.shape = '.', show.legend = F)+
   scale_fill_distiller(palette = 3)+ #i like 3,4,8,9,10, 16
   geom_jitter(aes(color = spacing), height = 0, width = 0.05, 
-              size = 2, alpha = 1, show.legend = F)+scale_color_manual(values = c("#F8766D","#00BFC4",'grey'))+
+              size = 4, alpha = 1, show.legend = F)+scale_color_manual(values = c("#44fa37","#7124b5",'grey'))+
   #annotate('text', label = 'Stop codon', hjust = 0, x = 0.45, y = 0, vjust = 1)+
   ylim(-1,1.8)+
   theme_pubr()+ylab('Growth Slope')+xlab('W & D count')+ylab(' ')
 
-#ggsave('g-spacing.tiff',p3, height = 4, width = 3, units = 'in', dpi = 800)
+#ggsave('g-spacing.tiff',p3, height = 4, width = 3, units = 'in', dpi = 400)
 
 #saveRDS(p3, 'Figure 1/fig1_gspacing.rds')
 

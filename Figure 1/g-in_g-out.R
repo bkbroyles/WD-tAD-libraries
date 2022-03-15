@@ -35,7 +35,7 @@ p4 <- ggplot(lib, aes(Index, slope, color = ` `, fill = ` `))+
   geom_hline(yintercept = 0, color = 'black', linetype = 'solid', size = 0.8)+
   stat_smooth(method = "lm", formula = y ~ poly(x, 3), size = 3,
               se = F, show.legend = F)+
-  geom_jitter(height = 0,size = 0.9, alpha = 1, width = 0.1, show.legend = F)+
+  geom_jitter(height = 0,size = 2, alpha = 1, width = 0.1, show.legend = F)+
   theme_pubr()+scale_x_continuous(breaks = seq(2,20,2))+
   ylab('Growth Slope')+xlab('Length of WD-module')+
   coord_cartesian(clip = "off",ylim = c(-1.2, 2.5), xlim = c(2, 20))+ylab(' ')+
@@ -44,6 +44,6 @@ p4 <- ggplot(lib, aes(Index, slope, color = ` `, fill = ` `))+
 
 p4
 
-#ggsave('g-in_g-out.tiff',p4,height = 4,width = 3,units = 'in',dpi = 800)
+#ggsave('g-in_g-out.tiff',p4,height = 4,width = 3,units = 'in',dpi = 400)
 
 #saveRDS(p4, 'Figure 1/fig1_Gin-out.rds')

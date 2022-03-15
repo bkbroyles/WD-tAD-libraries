@@ -33,7 +33,7 @@ p2 <- ggplot(lib, aes(Index, slope, color = ` `, fill = ` `))+
   #geom_smooth(se = F, show.legend = F, size = 4)+
   stat_smooth(method = "lm", formula = y ~ poly(x, 3), size = 3,
               se = F, show.legend = F)+
-  geom_jitter(height = 0,size = 0.9, alpha = 1, width = 0.05,
+  geom_jitter(height = 0,size = 2, alpha = 1, width = 0.05,
               show.legend = F)+
   #These annotates add labels to h-lines
   #Below here is figure finalizing things
@@ -43,6 +43,6 @@ p2 <- ggplot(lib, aes(Index, slope, color = ` `, fill = ` `))+
   scale_fill_manual(values = c("#F8766D","#00BFC4"))+
   scale_color_manual(values = c("#F8766D","#00BFC4"))
 
-#ggsave('d-wfirst.tiff',p2, height = 4, width = 3, dpi = 800, units = 'in')
+#ggsave('d-wfirst.tiff',p2, height = 4, width = 3, dpi = 400, units = 'in')
 
 #saveRDS(p2, 'fig1_D-Wfirst.rds')
