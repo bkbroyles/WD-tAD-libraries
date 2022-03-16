@@ -32,8 +32,10 @@ lib$Index <- 20 - str_count(lib$aa_seq, 'G')
 lib$` ` <- lib$set
 
 p4 <- ggplot(lib, aes(Index, slope, color = ` `, fill = ` `))+
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = 0), 
+            fill = 'grey85', color = 'grey85')+
   geom_hline(yintercept = 0, color = 'black', linetype = 'solid', size = 0.8)+
-  stat_smooth(method = "lm", formula = y ~ poly(x, 3), size = 3,
+  stat_smooth(method = "lm", formula = y ~ poly(x, 3), size = 2.2,
               se = F, show.legend = F)+
   geom_jitter(height = 0,size = 2, alpha = 1, width = 0.1, show.legend = F)+
   theme_pubr()+scale_x_continuous(breaks = seq(2,20,2))+
@@ -44,6 +46,6 @@ p4 <- ggplot(lib, aes(Index, slope, color = ` `, fill = ` `))+
 
 p4
 
-#ggsave('g-in_g-out.tiff',p4,height = 4,width = 3,units = 'in',dpi = 400)
+  #ggsave('g-in_g-out.tiff',p4,height = 4,width = 3,units = 'in',dpi = 400)
 
 #saveRDS(p4, 'Figure 1/fig1_Gin-out.rds')

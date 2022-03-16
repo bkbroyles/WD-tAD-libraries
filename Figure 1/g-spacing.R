@@ -45,12 +45,13 @@ lib <- lib[c(ro1,ro2,ro3),]
 
 lib$`G's between\n   W and D` <- lib$spacing
 
-  p3 <- ggplot(lib, aes(wd2, slope))+
+p3 <- ggplot(lib, aes(wd2, slope))+
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = 0), 
+              fill = 'grey85', color = 'grey85')+
   geom_hline(yintercept = 0, color = 'black', linetype = 'solid', size = 0.8)+
   geom_boxplot(fill = 'grey48', outlier.shape = '.', show.legend = F)+
-  scale_fill_distiller(palette = 3)+ #i like 3,4,8,9,10, 16
-  geom_jitter(aes(color = spacing), height = 0, width = 0.05, 
-              size = 4, alpha = 1, show.legend = F)+scale_color_manual(values = c("#44fa37","#7124b5",'grey'))+
+  geom_jitter(aes(fill = spacing), shape = 21, height = 0, width = 0.05, color = 'black',
+              size = 4, alpha = 1, show.legend = F)+scale_fill_manual(values = c("#44fa37","#7124b5",'grey'))+
   #annotate('text', label = 'Stop codon', hjust = 0, x = 0.45, y = 0, vjust = 1)+
   ylim(-1,1.8)+
   theme_pubr()+ylab('Growth Slope')+xlab('W & D count')+ylab(' ')

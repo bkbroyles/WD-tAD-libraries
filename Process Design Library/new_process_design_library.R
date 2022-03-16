@@ -356,6 +356,17 @@ for(i in 1:nrow(A_screen_agg)){
   A_screen_agg$mse[i] <- sse/(4 - na_length) 
 }
 A_screen_agg$rmse <- sqrt(A_screen_agg$mse)
+
+##confindence intervals----
+ci_95 <- tibble(id_number = A_screen_agg$id_number, low = 0, high = 0, slope = 0)
+ci_95$slope <- A_screen_agg$slope <- sapply(models, function(i) i$coefficients)
+for(i in 1:length(models)){
+  x <- confint.default(models[[i]], level = 0.95)
+  ci_95$low[i] <- x[1]
+  ci_95$high[i] <- x[2]
+}
+
+
 #models <- apply(H_screen_agg[,c("day1","day2","day3","day4")],1,regress1)
 
 #H_screen_agg$slope <- sapply(models, function(i) i$coefficients)
@@ -384,6 +395,12 @@ A_screen$binary_stop <- ifelse(A_screen$slope > a_cut, 'live','die')
 
 A_screen$slope <- A_screen$slope - a_cut
 
+##add a_cut to 95% ci
+ci_95$low <- ci_95$low - a_cut
+ci_95$high <- ci_95$high - a_cut
+ci_95$slope <- ci_95$slope - a_cut
+
+#saveRDS(ci_95, 'CI_95_dlib.rds')
 #H_screen <- H_screen_agg %>% dplyr::select(id_number, aa_seq, set,
 #                                           slope, converged, mse)
 

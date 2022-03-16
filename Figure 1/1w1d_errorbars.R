@@ -23,6 +23,8 @@ hold$min <- hold$slope + hold$rmse
 hold$max <- hold$slope - hold$rmse
 
 plot_1w1d <- ggplot(hold, aes(index, slope, color = rep))+
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = 0), 
+            fill = 'grey85', color = 'grey85')+
   geom_hline(yintercept = 0, size = 0.8)+
   geom_errorbar(aes(ymin = min, ymax = max), width = 0.2, show.legend = F)+
   geom_point(size = 2, show.legend = F)+

@@ -27,11 +27,13 @@ lib$` ` <- lib$set
 
 ##fig1 - B - plot ----
 p2 <- ggplot(lib, aes(Index, slope, color = ` `, fill = ` `))+
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = 0), 
+            fill = 'grey85', color = 'grey85')+
   #Below - these add horizontal control sequence lines
   geom_hline(yintercept = 0, color = 'black', linetype = 'solid', size = 0.8)+
   #Below two lines are to plot library data
   #geom_smooth(se = F, show.legend = F, size = 4)+
-  stat_smooth(method = "lm", formula = y ~ poly(x, 3), size = 3,
+  stat_smooth(method = "lm", formula = y ~ poly(x, 3), size = 2.2,
               se = F, show.legend = F)+
   geom_jitter(height = 0,size = 2, alpha = 1, width = 0.05,
               show.legend = F)+

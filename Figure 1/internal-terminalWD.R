@@ -32,6 +32,8 @@ lib$` ` <- lib$set
 
 ##fig1 - A - plot ----
 p1 <- ggplot(lib, aes(Index, slope, color = ` `, fill = ` `))+
+  geom_rect(aes(xmin = -Inf, xmax = 20, ymin = -Inf, ymax = 0), 
+            fill = 'grey85', color = 'grey85')+
   #First - add horizontal control sequence lines
   geom_segment(x = 1, xend = 20, y = 0, yend = 0, 
                color = 'black', linetype = 'solid', size = 0.8)+
@@ -46,7 +48,7 @@ p1 <- ggplot(lib, aes(Index, slope, color = ` `, fill = ` `))+
   geom_segment(x = 1, xend = 20, y = known_sample$avg[5], yend = known_sample$avg[5],
                color = '#826200', linetype = 'dashed', size = 0.6)+
   #Second - add smooth trend lines
-  stat_smooth(method = "lm", formula = y ~ poly(x, 3), size = 3,
+  stat_smooth(method = "lm", formula = y ~ poly(x, 3), size = 2.2,
               se = F, show.legend = F)+
   #Third - add individual points
   geom_jitter(height = 0,size = 2, alpha = 1, width = 0.05)+
