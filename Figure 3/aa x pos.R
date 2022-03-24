@@ -56,7 +56,7 @@ plotme$` ` <- plotme$aa
 p2 <- ggplot(plotme, aes(pos, live_percent, color = ` `))+
   geom_hline(yintercept = 33.5, linetype = 'dashed')+
   #geom_smooth(se=F, size = 4, alpha = 0.4, show.legend = F)+
-  stat_smooth(method = "lm", formula = y ~ poly(x, 3), size = 4,
+  stat_smooth(method = "lm", formula = y ~ poly(x, 3), size = 2.2,
               se = F, show.legend = F)+
   geom_point(shape = 21, color = 'black', aes(fill = ` `), size = 2)+
   theme_pubr()+scale_x_continuous(breaks = 1:12)+
@@ -66,6 +66,6 @@ p2 <- ggplot(plotme, aes(pos, live_percent, color = ` `))+
 
 p2
 
-#ggsave('aa-x-pos.tiff',p2, height = 4, width = 3, dpi = 800, units = 'in')
+#ggsave('aa-x-pos.tiff',p2, height = 4, width = 3, dpi = 100, units = 'in')
 #saveRDS(p2, 'Figure 3/fig3_aaxpos.rds')
 
