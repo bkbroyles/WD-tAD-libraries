@@ -40,10 +40,6 @@ A_screen <- bioreps %>% dplyr::select(id_number, aa_seq, barcode, set,
                                       starts_with('P1'), 
                                       starts_with('R'))
 
-#H_screen <- bioreps %>% dplyr::select(id_number, aa_seq, barcode, set,
-#                                      starts_with('P2'),
-#                                      starts_with('S'))
-
 #reorder these columns
 A_screen <- A_screen %>% dplyr::select(id_number, aa_seq, 
                                        barcode, set, contains('bc1'),contains('bc2'),
